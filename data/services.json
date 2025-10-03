@@ -1,0 +1,180 @@
+{
+  "categories": [
+    {
+      "id": "coupes",
+      "name": "Coupes & Coiffures",
+      "description": "Des coupes classiques aux styles les plus modernes",
+      "icon": "scissors",
+      "services": [
+        {
+          "id": "coupe-classique",
+          "name": "Coupe Classique",
+          "description": "Coupe traditionnelle avec finitions soignées",
+          "price": 2500,
+          "duration": 30,
+          "popular": false
+        },
+        {
+          "id": "coupe-moderne",
+          "name": "Coupe Moderne",
+          "description": "Styles contemporains et tendances urbaines",
+          "price": 3500,
+          "duration": 45,
+          "popular": true
+        },
+        {
+          "id": "degrade",
+          "name": "Dégradé",
+          "description": "Dégradé progressif ou américain",
+          "price": 3000,
+          "duration": 40,
+          "popular": true
+        },
+        {
+          "id": "coiffure-evenement",
+          "name": "Coiffure Événementielle",
+          "description": "Coiffure spéciale pour mariages, cérémonies",
+          "price": 5000,
+          "duration": 60,
+          "popular": false
+        },
+        {
+          "id": "coupe-enfant",
+          "name": "Coupe Enfant",
+          "description": "Coupe adaptée pour les enfants (-12 ans)",
+          "price": 2000,
+          "duration": 25,
+          "popular": false
+        }
+      ]
+    },
+    {
+      "id": "tresses",
+      "name": "Tresses & Nattes",
+      "description": "Styles africains traditionnels et modernes",
+      "icon": "sparkles",
+      "services": [
+        {
+          "id": "tresses-simples",
+          "name": "Tresses Simples",
+          "description": "Tresses classiques, style traditionnel",
+          "price": 4000,
+          "duration": 90,
+          "popular": false
+        },
+        {
+          "id": "tresses-collees",
+          "name": "Tresses Collées",
+          "description": "Cornrows, tresses plaquées",
+          "price": 5000,
+          "duration": 120,
+          "popular": true
+        },
+        {
+          "id": "nattes",
+          "name": "Nattes",
+          "description": "Nattes variées selon votre style",
+          "price": 3500,
+          "duration": 60,
+          "popular": false
+        },
+        {
+          "id": "locks",
+          "name": "Locks / Dreadlocks",
+          "description": "Création et entretien de locks",
+          "price": 6000,
+          "duration": 150,
+          "popular": false
+        },
+        {
+          "id": "tresses-box-braids",
+          "name": "Box Braids",
+          "description": "Tresses individuelles, style moderne",
+          "price": 7000,
+          "duration": 180,
+          "popular": true
+        }
+      ]
+    },
+    {
+      "id": "soins",
+      "name": "Soins & Beauté",
+      "description": "Traitements professionnels pour votre bien-être",
+      "icon": "sparkle",
+      "services": [
+        {
+          "id": "bain-visage",
+          "name": "Bain de Visage",
+          "description": "Nettoyage profond et hydratation",
+          "price": 3000,
+          "duration": 30,
+          "popular": true
+        },
+        {
+          "id": "lavage-professionnel",
+          "name": "Lavage Professionnel",
+          "description": "Shampooing et soin capillaire",
+          "price": 1500,
+          "duration": 20,
+          "popular": false
+        },
+        {
+          "id": "soin-barbe",
+          "name": "Soin Barbe",
+          "description": "Taille, modelage et entretien de barbe",
+          "price": 2000,
+          "duration": 25,
+          "popular": true
+        },
+        {
+          "id": "pedicure",
+          "name": "Pédicure",
+          "description": "Soin complet des pieds",
+          "price": 2500,
+          "duration": 35,
+          "popular": false
+        },
+        {
+          "id": "massage-crane",
+          "name": "Massage Crânien",
+          "description": "Massage relaxant du cuir chevelu",
+          "price": 1500,
+          "duration": 15,
+          "popular": false
+        }
+      ]
+    },
+    {
+      "id": "forfaits",
+      "name": "Forfaits Premium",
+      "description": "Combinaisons de services à prix avantageux",
+      "icon": "crown",
+      "services": [
+        {
+          "id": "forfait-complet",
+          "name": "Forfait Complet",
+          "description": "Coupe + Bain de visage + Soin barbe",
+          "price": 7000,
+          "duration": 90,
+          "popular": true
+        },
+        {
+          "id": "forfait-premium",
+          "name": "Forfait Premium",
+          "description": "Coupe moderne + Bain + Barbe + Massage",
+          "price": 9000,
+          "duration": 120,
+          "popular": true
+        },
+        {
+          "id": "forfait-express",
+          "name": "Forfait Express",
+          "description": "Coupe + Lavage rapide",
+          "price": 4000,
+          "duration": 45,
+          "popular": false
+        }
+      ]
+    }
+  ]
+}

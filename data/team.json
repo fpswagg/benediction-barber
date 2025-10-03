@@ -1,0 +1,54 @@
+{
+  "members": [
+    {
+      "id": "jean-paul",
+      "name": "Jean-Paul Mbarga",
+      "role": "Barbier Principal & Fondateur",
+      "bio": "Avec plus de 10 ans d'expérience, Jean-Paul a fondé Bénédiction Barber pour offrir un service de qualité premium à Yaoundé. Spécialiste des coupes modernes et des dégradés.",
+      "specialties": ["Dégradés", "Coupes modernes", "Design capillaire", "Barbe"],
+      "experience": "10+ ans",
+      "image": "professional barber cutting hair modern style",
+      "available": true
+    },
+    {
+      "id": "samuel",
+      "name": "Samuel Nkolo",
+      "role": "Barbier Senior",
+      "bio": "Expert en styles urbains et coupes tendances. Samuel apporte une touche créative et moderne à chaque coupe. Passionné par les nouvelles techniques.",
+      "specialties": ["Coupes urbaines", "Fade", "Coiffures événementielles", "Consultation style"],
+      "experience": "7 ans",
+      "image": "young professional barber urban style",
+      "available": true
+    },
+    {
+      "id": "marie",
+      "name": "Marie Fotso",
+      "role": "Spécialiste Tresses & Soins",
+      "bio": "Marie est notre experte en tresses africaines et soins capillaires. Elle maîtrise tous les styles de tressage traditionnel et moderne.",
+      "specialties": ["Tresses collées", "Box braids", "Locks", "Soins capillaires"],
+      "experience": "8 ans",
+      "image": "professional female hairstylist african braids",
+      "available": true
+    },
+    {
+      "id": "david",
+      "name": "David Essomba",
+      "role": "Barbier & Esthéticien",
+      "bio": "Spécialiste des soins du visage et de la barbe. David combine expertise en coiffure et soins esthétiques pour un service complet.",
+      "specialties": ["Bain de visage", "Soin barbe", "Pédicure", "Massage"],
+      "experience": "5 ans",
+      "image": "barber doing facial treatment professional",
+      "available": true
+    },
+    {
+      "id": "patrick",
+      "name": "Patrick Owona",
+      "role": "Barbier Junior",
+      "bio": "Jeune talent prometteur, Patrick apporte une énergie nouvelle et une passion pour les styles classiques revisités.",
+      "specialties": ["Coupes classiques", "Coupe enfant", "Lavage", "Finitions"],
+      "experience": "3 ans",
+      "image": "young barber apprentice professional",
+      "available": true
+    }
+  ]
+}

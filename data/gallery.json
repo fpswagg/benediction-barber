@@ -1,0 +1,68 @@
+{
+  "items": [
+    {
+      "id": "1",
+      "title": "Dégradé Moderne",
+      "category": "coupes",
+      "before": "hair before cut messy",
+      "after": "modern fade haircut professional clean",
+      "description": "Transformation complète avec dégradé progressif"
+    },
+    {
+      "id": "2",
+      "title": "Coupe Classique",
+      "category": "coupes",
+      "before": "long hair before haircut",
+      "after": "classic short haircut professional",
+      "description": "Coupe classique avec finitions soignées"
+    },
+    {
+      "id": "3",
+      "title": "Box Braids",
+      "category": "tresses",
+      "before": "natural hair before braiding",
+      "after": "box braids hairstyle professional african",
+      "description": "Tresses box braids style moderne"
+    },
+    {
+      "id": "4",
+      "title": "Tresses Collées",
+      "category": "tresses",
+      "before": "hair before cornrows",
+      "after": "cornrows braids professional clean",
+      "description": "Tresses collées avec motifs"
+    },
+    {
+      "id": "5",
+      "title": "Barbe Sculptée",
+      "category": "soins",
+      "before": "messy beard before grooming",
+      "after": "sculpted beard professional clean",
+      "description": "Taille et modelage de barbe professionnel"
+    },
+    {
+      "id": "6",
+      "title": "Coupe Urbaine",
+      "category": "coupes",
+      "before": "hair before urban cut",
+      "after": "urban haircut modern style professional",
+      "description": "Style urbain avec design capillaire"
+    },
+    {
+      "id": "7",
+      "title": "Locks Entretien",
+      "category": "tresses",
+      "before": "dreadlocks before maintenance",
+      "after": "dreadlocks after professional maintenance clean",
+      "description": "Entretien et retwist de locks"
+    },
+    {
+      "id": "8",
+      "title": "Fade Haut",
+      "category": "coupes",
+      "before": "hair before high fade",
+      "after": "high fade haircut professional sharp",
+      "description": "Fade haut avec ligne nette"
+    }
+  ]
+}
