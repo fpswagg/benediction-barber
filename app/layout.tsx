@@ -26,12 +26,25 @@ export const metadata: Metadata = {
     "Salon de coiffure professionnel à Yaoundé. Coupes modernes, tresses, bain de visage, pédicure. Réservez votre rendez-vous en ligne.",
   keywords:
     "barbier Yaoundé, coiffure homme Yaoundé, barber shop Yaoundé, tresses Yaoundé, coupe moderne Cameroun",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Bénédiction Barber | Salon de Coiffure Urbain à Yaoundé",
     description:
       "Salon de coiffure professionnel à Yaoundé. Coupes modernes, tresses, bain de visage.",
     locale: "fr_CM",
     type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 32,
+        height: 32,
+        alt: "Bénédiction Barber Logo",
+      },
+    ],
   },
 };
 

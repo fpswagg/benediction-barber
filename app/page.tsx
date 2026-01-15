@@ -73,18 +73,18 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <div className="font-bebas text-4xl md:text-5xl text-primary-foreground">
-                  1000+
+                  4.8/5
                 </div>
                 <div className="text-sm text-primary-foreground/70 uppercase tracking-wide">
-                  Clients satisfaits
+                  Note moyenne
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="font-bebas text-4xl md:text-5xl text-primary-foreground">
-                  15+
+                  3
                 </div>
                 <div className="text-sm text-primary-foreground/70 uppercase tracking-wide">
-                  Services offerts
+                  Barbiers experts
                 </div>
               </div>
             </div>
@@ -176,32 +176,32 @@ export default function HomePage() {
               {
                 title: "Coupes & Coiffures",
                 services: [
-                  "Coupe classique",
-                  "Coupe moderne",
-                  "Dégradé",
-                  "Coiffure événementielle",
+                  "Coupe simple",
+                  "Coupe avec black",
+                  "Taper fade",
+                  "Coiffure personnalisée",
                 ],
-                image: "barber cutting hair modern style",
+                image: "/men-haircut.jpg",
               },
               {
                 title: "Soins & Beauté",
                 services: [
-                  "Bain de visage",
-                  "Lavage professionnel",
-                  "Soin barbe",
+                  "Soins de visage",
+                  "Lavage de cheveux",
                   "Pédicure",
+                  "Manicure"
                 ],
-                image: "barber facial treatment professional",
+                image: "/care.jpg",
               },
               {
                 title: "Tresses & Styles",
                 services: [
-                  "Tresses africaines",
+                  "Tresses",
                   "Nattes",
                   "Locks",
                   "Styles personnalisés",
                 ],
-                image: "african braids hairstyle professional",
+                image: "/tresses.jpg",
               },
             ].map((category, index) => (
               <Card
@@ -212,7 +212,7 @@ export default function HomePage() {
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
                     style={{
-                      backgroundImage: `url('/--category-image-.jpg')`,
+                      backgroundImage: `url('${category.image}')`,
                     }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

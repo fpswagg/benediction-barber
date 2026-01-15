@@ -12,11 +12,8 @@ import {
   PUBLIC_ADDRESS_LINE_1,
   PUBLIC_ADDRESS_CITY_COUNTRY,
   PUBLIC_PHONE_PRIMARY,
-  PUBLIC_PHONE_SECONDARY,
   PUBLIC_EMAIL_PRIMARY,
-  PUBLIC_EMAIL_SECONDARY,
-  PUBLIC_HOURS_WEEKDAY,
-  PUBLIC_HOURS_SUNDAY,
+  PUBLIC_HOURS,
   getWhatsAppUrlWithText,
 } from "@/lib/config";
 import { useState } from "react";
@@ -108,9 +105,9 @@ export default function ContactPage() {
                       <p className="text-sm text-muted-foreground">
                         {PUBLIC_PHONE_PRIMARY}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      {/* <p className="text-sm text-muted-foreground">
                         {PUBLIC_PHONE_SECONDARY}
-                      </p>
+                      </p> */}
                     </div>
                   </CardContent>
                 </Card>
@@ -126,9 +123,9 @@ export default function ContactPage() {
                       <p className="text-sm text-muted-foreground">
                         {PUBLIC_EMAIL_PRIMARY}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      {/* <p className="text-sm text-muted-foreground">
                         {PUBLIC_EMAIL_SECONDARY}
-                      </p>
+                      </p> */}
                     </div>
                   </CardContent>
                 </Card>
@@ -142,11 +139,11 @@ export default function ContactPage() {
                     <div className="space-y-1">
                       <h3 className="font-semibold">Horaires</h3>
                       <p className="text-sm text-muted-foreground">
-                        {PUBLIC_HOURS_WEEKDAY}
+                        {PUBLIC_HOURS}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      {/* <p className="text-sm text-muted-foreground">
                         {PUBLIC_HOURS_SUNDAY}
-                      </p>
+                      </p> */}
                     </div>
                   </CardContent>
                 </Card>

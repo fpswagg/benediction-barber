@@ -5,6 +5,7 @@ import {
   PUBLIC_PHONE_PRIMARY,
   PUBLIC_EMAIL_PRIMARY,
   PUBLIC_BUSINESS_NAME,
+  PUBLIC_HOURS
 } from "@/lib/config";
 
 export function Footer() {
@@ -75,9 +76,7 @@ export function Footer() {
               Horaires
             </h4>
             <p className="text-sm text-primary-foreground/80 leading-relaxed">
-              Lun - Sam: 9h - 20h
-              <br />
-              Dimanche: 10h - 18h
+                {PUBLIC_HOURS}
             </p>
             <div className="flex gap-4 pt-2">
               <a

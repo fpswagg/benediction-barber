@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { Menu, X, Scissors } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -24,7 +25,13 @@ export function Navigation() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <Scissors className="h-8 w-8 text-foreground transition-transform group-hover:rotate-12" />
+            <Image 
+              src="/logo.svg" 
+              alt="Bénédiction Barber Logo" 
+              width={32} 
+              height={32}
+              className="h-8 w-8 text-foreground transition-transform group-hover:rotate-12"
+            />
             <span className="font-bebas text-3xl tracking-wider text-foreground">
               BÉNÉDICTION BARBER
             </span>
