@@ -1,25 +1,35 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Scissors, Clock, Award, MapPin, ArrowRight, Star } from "lucide-react";
+import { Scissors, Clock, Award, MapPin, ArrowRight, Gamepad2, CupSoda, Flame } from "lucide-react";
+import { getSite } from "@/lib/sss";
+import { StatusPill } from "@/components/status-bar";
 
-export default function HomePage() {
+const catImage = (id: string, gallery: { url: string; category: string }[], fallback: string) =>
+  gallery.find((g) => g.category === id)?.url ?? fallback;
+
+export default async function HomePage() {
+  const site = await getSite();
+  const open = site.hours.filter((d) => d.slots.length).length;
+  const first = site.hours.find((d) => d.slots.length)?.slots[0];
+  const hoursShort = first ? `${first.from.replace(/^0/, "").replace(":00", "h")}–${first.to.replace(":00", "h")}` : "";
+  const photo = (id: string, fallback: string) => catImage(id, site.gallery, fallback);
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-primary">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className={`absolute inset-0 ${site.bannerUrl ? "opacity-35" : "opacity-5"}`}>
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage:
-                "url('/barber-tools-pattern-black-and-white.jpg')",
+              backgroundImage: `url('${site.bannerUrl ?? "/barber-tools-pattern-black-and-white.jpg"}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           />
         </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
@@ -34,9 +44,9 @@ export default function HomePage() {
 
             {/* Subheading */}
             <p className="text-lg md:text-xl text-primary-foreground/80 max-w-2xl mx-auto leading-relaxed text-pretty">
-              Votre destination pour des coupes modernes et un service
-              professionnel au cœur de Yaoundé
+              {site.heroSubtitle}
             </p>
+            <StatusPill status={site.status} className="border-primary-foreground/30 text-primary-foreground bg-black/30" />
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -65,26 +75,26 @@ export default function HomePage() {
             <div className="grid grid-cols-3 gap-8 py-12 max-w-2xl mx-auto">
               <div className="space-y-2">
                 <div className="font-bebas text-4xl md:text-5xl text-primary-foreground">
-                  5+
+                  {open === 7 ? "7j/7" : `${open}j/7`}
                 </div>
                 <div className="text-sm text-primary-foreground/70 uppercase tracking-wide">
-                  Ans d'expérience
+                  Ouvert
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="font-bebas text-4xl md:text-5xl text-primary-foreground">
-                  4.8/5
+                  {hoursShort}
                 </div>
                 <div className="text-sm text-primary-foreground/70 uppercase tracking-wide">
-                  Note moyenne
+                  Horaires
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="font-bebas text-4xl md:text-5xl text-primary-foreground">
-                  3
+                  {site.team.length || site.categories.reduce((n, c) => n + c.services.length, 0)}
                 </div>
                 <div className="text-sm text-primary-foreground/70 uppercase tracking-wide">
-                  Barbiers experts
+                  {site.team.length ? "Pros dans l'équipe" : "Prestations"}
                 </div>
               </div>
             </div>
@@ -122,20 +132,20 @@ export default function HomePage() {
               },
               {
                 icon: Award,
-                title: "Qualité Premium",
+                title: "Détente",
                 description:
-                  "Produits haut de gamme et équipements professionnels pour un résultat parfait",
+                  "PS4, boissons fraîches et chicha sur place pendant que vous patientez",
               },
               {
                 icon: Clock,
                 title: "Flexibilité",
                 description:
-                  "Horaires étendus et système de réservation simple pour votre confort",
+                  "Ouvert tous les jours de 8h à 22h, réservation en ligne ou avec notre assistant",
               },
               {
                 icon: MapPin,
                 title: "Localisation",
-                description: "Situé au cœur de Yaoundé, facilement accessible",
+                description: `À ${site.city}, facile d'accès`,
               },
             ].map((feature, index) => (
               <Card
@@ -181,27 +191,27 @@ export default function HomePage() {
                   "Taper fade",
                   "Coiffure personnalisée",
                 ],
-                image: "/men-haircut.jpg",
+                image: photo("coupes", "/men-haircut.jpg"),
               },
               {
-                title: "Soins & Beauté",
+                title: "Barbe & Soins",
                 services: [
-                  "Soins de visage",
+                  "Taille et contours de barbe",
+                  "Bain de visage",
                   "Lavage de cheveux",
                   "Pédicure",
-                  "Manicure"
                 ],
-                image: "/care.jpg",
+                image: photo("barbe", "/care.jpg"),
               },
               {
                 title: "Tresses & Styles",
                 services: [
                   "Tresses",
                   "Nattes",
+                  "Twists",
                   "Locks",
-                  "Styles personnalisés",
                 ],
-                image: "/tresses.jpg",
+                image: photo("tresses", "/tresses.jpg"),
               },
             ].map((category, index) => (
               <Card
@@ -244,6 +254,53 @@ export default function HomePage() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery strip */}
+      {site.gallery.length ? (
+        <section className="py-20 md:py-28 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="text-center space-y-4 mb-12">
+              <h2 className="font-bebas text-5xl md:text-6xl text-foreground tracking-wider">AU SALON</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">Nos réalisations, photographiées chez nous</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-6xl mx-auto">
+              {site.gallery.slice(0, 8).map((g, i) => (
+                <Link key={g.url} href="/galerie" className={`group relative overflow-hidden rounded-sm bg-muted ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={g.url} alt={g.caption} loading="lazy" className="h-full w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105" />
+                </Link>
+              ))}
+            </div>
+            <div className="text-center mt-10">
+              <Button asChild size="lg" variant="outline" className="uppercase tracking-wide">
+                <Link href="/galerie">
+                  Voir la galerie
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {/* On site */}
+      <section className="py-16 bg-muted/30 border-y border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+            {[
+              { icon: Gamepad2, title: "PS4", text: "Une partie en attendant votre tour" },
+              { icon: CupSoda, title: "Boissons fraîches", text: "Et de quoi grignoter sur place" },
+              { icon: Flame, title: "Chicha", text: "Pour se détendre entre amis" },
+            ].map((x) => (
+              <div key={x.title} className="space-y-2">
+                <x.icon className="h-8 w-8 mx-auto text-gold" />
+                <h3 className="font-bebas text-2xl tracking-wide">{x.title}</h3>
+                <p className="text-sm text-muted-foreground">{x.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

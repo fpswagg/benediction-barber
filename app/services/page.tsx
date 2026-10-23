@@ -3,7 +3,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Scissors, Sparkles, Crown, Clock, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import servicesData from "@/data/services.json"
+import { getSite } from "@/lib/sss"
+import { AskButton } from "@/components/ask-button"
 
 const iconMap = {
   scissors: Scissors,
@@ -18,7 +19,10 @@ export const metadata = {
     "Découvrez nos services de coiffure professionnelle : coupes modernes, tresses, bain de visage, pédicure. Tarifs transparents à Yaoundé.",
 }
 
-export default function ServicesPage() {
+export const revalidate = 60
+
+export default async function ServicesPage() {
+  const site = await getSite()
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -42,7 +46,7 @@ export default function ServicesPage() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="space-y-20">
-            {servicesData.categories.map((category, categoryIndex) => {
+            {site.categories.map((category, categoryIndex) => {
               const IconComponent = iconMap[category.icon as keyof typeof iconMap] || Scissors
 
               return (
@@ -84,25 +88,39 @@ export default function ServicesPage() {
 
                         <CardContent className="space-y-4">
                           <div className="flex items-baseline gap-2">
-                            <span className="font-bebas text-4xl text-foreground">
-                              {service.price.toLocaleString()}
-                            </span>
-                            <span className="text-muted-foreground text-sm">FCFA</span>
+                            {service.price !== null ? (
+                              <>
+                                <span className="font-bebas text-4xl text-foreground">
+                                  {service.price.toLocaleString("fr-FR")}
+                                </span>
+                                <span className="text-muted-foreground text-sm">{service.currency}</span>
+                              </>
+                            ) : (
+                              <span className="font-bebas text-2xl text-foreground">Prix sur demande</span>
+                            )}
                           </div>
 
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Clock className="h-4 w-4" />
-                            <span>{service.duration} minutes</span>
-                          </div>
+                          {service.duration ? (
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Clock className="h-4 w-4" />
+                              <span>{service.duration} minutes</span>
+                            </div>
+                          ) : null}
                         </CardContent>
 
-                        <CardFooter>
+                        <CardFooter className="flex-col gap-2">
                           <Button asChild className="w-full group/btn uppercase tracking-wide">
                             <Link href={`/reservation?service=${service.id}`}>
                               Réserver
                               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                             </Link>
                           </Button>
+                          <AskButton
+                            prefill={`Bonjour, j'ai une question sur « ${service.name} » : `}
+                            className="w-full text-xs text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                          >
+                            Poser une question
+                          </AskButton>
                         </CardFooter>
                       </Card>
                     ))}
@@ -123,7 +141,10 @@ export default function ServicesPage() {
               Notre équipe est là pour vous conseiller et vous aider à choisir le service adapté à vos besoins
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-              <Button asChild size="lg" className="uppercase tracking-wide">
+              <AskButton className="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium uppercase tracking-wide text-primary-foreground hover:bg-primary/90">
+                Demander à l&apos;assistant
+              </AskButton>
+              <Button asChild size="lg" variant="outline" className="uppercase tracking-wide bg-transparent">
                 <Link href="/contact">Nous contacter</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="uppercase tracking-wide bg-transparent">

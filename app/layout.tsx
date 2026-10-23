@@ -6,6 +6,9 @@ import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { Suspense } from "react";
+import { Assistant } from "@/components/assistant";
+import { getSite } from "@/lib/sss";
+import { SSS_API_URL } from "@/lib/config";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -20,10 +23,19 @@ const bebasNeue = Bebas_Neue({
   display: "swap",
 });
 
-export const metadata: Metadata = {
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSite();
+  const image = site.gallery[0]?.url ?? site.bannerUrl;
+  return {
+    ...baseMetadata,
+    openGraph: { ...baseMetadata.openGraph, ...(image ? { images: [{ url: image, alt: site.name }] } : {}) },
+  };
+}
+
+const baseMetadata: Metadata = {
   title: "Bénédiction Barber | Salon de Coiffure Urbain à Yaoundé",
   description:
-    "Salon de coiffure professionnel à Yaoundé. Coupes modernes, tresses, bain de visage, pédicure. Réservez votre rendez-vous en ligne.",
+    "Salon de coiffure professionnel à Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours de 8h à 22h. Réservez votre rendez-vous en ligne.",
   keywords:
     "barbier Yaoundé, coiffure homme Yaoundé, barber shop Yaoundé, tresses Yaoundé, coupe moderne Cameroun",
   icons: {
@@ -37,22 +49,15 @@ export const metadata: Metadata = {
       "Salon de coiffure professionnel à Yaoundé. Coupes modernes, tresses, bain de visage.",
     locale: "fr_CM",
     type: "website",
-    images: [
-      {
-        url: "/logo.png",
-        width: 32,
-        height: 32,
-        alt: "Bénédiction Barber Logo",
-      },
-    ],
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const site = await getSite();
   return (
     <html lang="fr" className={`${inter.variable} ${bebasNeue.variable}`}>
       <body className="font-sans antialiased">
@@ -60,7 +65,8 @@ export default function RootLayout({
         <Suspense fallback={<div className="min-h-screen" />}>
           <main className="min-h-screen">{children}</main>
         </Suspense>
-        <Footer />
+        <Footer site={site} />
+        {site.assistant ? <Assistant apiUrl={SSS_API_URL} assistant={site.assistant} /> : null}
         <Analytics />
       </body>
     </html>

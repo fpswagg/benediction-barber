@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Award, Clock, CheckCircle2, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import teamData from "@/data/team.json"
+import { getSite } from "@/lib/sss"
 
 export const metadata = {
   title: "Notre Équipe | Bénédiction Barber Yaoundé",
@@ -11,7 +11,20 @@ export const metadata = {
     "Rencontrez notre équipe de barbiers professionnels à Yaoundé. Experts en coupes modernes, tresses, et soins capillaires.",
 }
 
-export default function TeamPage() {
+export const revalidate = 60
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase()
+
+const day = (v: string) => v.split("-").reverse().slice(0, 2).join("/")
+
+export default async function TeamPage() {
+  const site = await getSite()
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -35,7 +48,7 @@ export default function TeamPage() {
       <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamData.members.map((member, index) => (
+            {site.team.map((member, index) => (
               <Card
                 key={member.id}
                 className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-fade-in-up"
@@ -43,31 +56,39 @@ export default function TeamPage() {
               >
                 {/* Photo */}
                 <div className="relative h-80 overflow-hidden bg-muted">
-                  <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                    style={{
-                      backgroundImage: `url('/--encodeuricomponent-member-image--.jpg')`,
-                    }}
-                  />
+                  {member.imageUrl ? (
+                    <div
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+                      style={{ backgroundImage: `url('${member.imageUrl}')` }}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-neutral-900 to-neutral-700">
+                      <span className="font-bebas text-8xl tracking-wider text-gold/90">{initials(member.name)}</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   {/* Status Badge */}
-                  {member.available && (
-                    <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4">
+                    {member.available ? (
                       <Badge className="bg-green-600 text-white border-0 flex items-center gap-1">
                         <CheckCircle2 className="h-3 w-3" />
-                        Disponible
+                        Disponible aujourd&apos;hui
                       </Badge>
-                    </div>
-                  )}
+                    ) : (
+                      <Badge className="bg-neutral-800 text-white border-0">
+                        Absent{member.backOn ? ` · de retour le ${day(member.backOn)}` : ""}
+                      </Badge>
+                    )}
+                  </div>
 
                   {/* Experience Badge */}
-                  <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {member.experience ? <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex items-center gap-2 bg-primary/90 backdrop-blur-sm text-primary-foreground px-3 py-1.5 rounded-full">
                       <Clock className="h-4 w-4" />
                       <span className="text-sm font-medium">{member.experience}</span>
                     </div>
-                  </div>
+                  </div> : null}
                 </div>
 
                 <CardContent className="p-6 space-y-4">
@@ -78,10 +99,10 @@ export default function TeamPage() {
                   </div>
 
                   {/* Bio */}
-                  <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
+                  {member.bio ? <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p> : null}
 
                   {/* Specialties */}
-                  <div className="space-y-2">
+                  {member.specialties.length ? <div className="space-y-2">
                     <div className="flex items-center gap-2 text-sm font-medium">
                       <Award className="h-4 w-4 text-primary" />
                       <span>Spécialités</span>
@@ -93,12 +114,12 @@ export default function TeamPage() {
                         </Badge>
                       ))}
                     </div>
-                  </div>
+                  </div> : null}
 
                   {/* CTA */}
-                  <Button asChild className="w-full uppercase tracking-wide group/btn mt-4">
-                    <Link href={`/reservation?barber=${member.id}`}>
-                      Réserver avec {member.name.split(" ")[0]}
+                  <Button asChild disabled={!member.available} variant={member.available ? "default" : "outline"} className="w-full uppercase tracking-wide group/btn mt-4">
+                    <Link href={member.available ? `/reservation?barber=${member.id}` : "/reservation"}>
+                      {member.available ? `Réserver avec ${member.name.split(" ")[0]}` : "Réserver avec quelqu'un d'autre"}
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                     </Link>
                   </Button>
