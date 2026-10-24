@@ -1,27 +1,27 @@
 import type React from "react";
-import type { Metadata } from "next";
-import { Inter, Bebas_Neue } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
-import { Suspense } from "react";
-import { Assistant } from "@/components/assistant";
 import { getSite } from "@/lib/sss";
-import { SSS_API_URL } from "@/lib/config";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas",
-  display: "swap",
-});
+const baseMetadata: Metadata = {
+  title: "Bénédiction Barber | Barbershop à Biyem-Assi, Yaoundé",
+  description:
+    "Barbershop à Biyem-Assi, face au collège Fleming, Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours. Réservez en ligne ou sur WhatsApp.",
+  keywords: "barbier Yaoundé, coiffure homme Yaoundé, barber shop Biyem-Assi, tresses Yaoundé, dégradé Cameroun",
+  icons: { icon: "/logo.png", shortcut: "/logo.png", apple: "/logo.png" },
+  openGraph: {
+    title: "Bénédiction Barber | Barbershop à Yaoundé",
+    description: "Coupes, dégradés, nattes, barbe et soins à Biyem-Assi, Yaoundé.",
+    locale: "fr_CM",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = { themeColor: "#faf9f6", width: "device-width", initialScale: 1 };
 
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSite();
@@ -32,41 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const baseMetadata: Metadata = {
-  title: "Bénédiction Barber | Salon de Coiffure Urbain à Yaoundé",
-  description:
-    "Salon de coiffure professionnel à Biyem-Assi, Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours de 9h à 18h. Réservez votre rendez-vous en ligne.",
-  keywords:
-    "barbier Yaoundé, coiffure homme Yaoundé, barber shop Yaoundé, tresses Yaoundé, coupe moderne Cameroun",
-  icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
-  },
-  openGraph: {
-    title: "Bénédiction Barber | Salon de Coiffure Urbain à Yaoundé",
-    description:
-      "Salon de coiffure professionnel à Yaoundé. Coupes modernes, tresses, bain de visage.",
-    locale: "fr_CM",
-    type: "website",
-  },
-};
-
-export default async function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const site = await getSite();
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${inter.variable} ${bebasNeue.variable}`}>
+    <html lang="fr" className={inter.variable}>
       <body className="font-sans antialiased">
-        <Navigation />
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <main className="min-h-screen">{children}</main>
-        </Suspense>
-        <Footer site={site} />
-        {site.assistant ? <Assistant apiUrl={SSS_API_URL} assistant={site.assistant} /> : null}
+        {children}
         <Analytics />
       </body>
     </html>

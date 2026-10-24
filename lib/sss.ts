@@ -26,6 +26,20 @@ const PAYMENTS: Record<string, string> = {
   orange_money: "Orange Money",
   card: "Carte bancaire",
   bank: "Virement",
+  bank_transfer: "Virement bancaire",
+  cheque: "Chèque",
+  credit: "Crédit",
+  other: "Autre",
+};
+
+export const SOCIAL_LABELS: Record<string, string> = {
+  instagram: "Instagram",
+  facebook: "Facebook",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+  x: "X",
+  linkedin: "LinkedIn",
+  telegram: "Telegram",
 };
 
 /** Look of each category on the site (the list itself comes from SSS). */
@@ -128,6 +142,13 @@ function fallback(): Site {
     hoursText: hoursText(days),
     status: null,
     payments: ["Espèces", "MTN Mobile Money", "Orange Money"],
+    paymentMethods: [
+      { id: "cash", label: "Espèces", details: "" },
+      { id: "mtn_momo", label: "MTN Mobile Money", details: "" },
+      { id: "orange_money", label: "Orange Money", details: "" },
+    ],
+    socials: [],
+    exceptions: [],
     faq: [],
     assistant: null,
     live: false,
@@ -199,6 +220,19 @@ async function load(): Promise<Site> {
     payments: arr(obj(business.payments).methods)
       .map((m) => PAYMENTS[str(obj(m).id)] ?? str(obj(m).label))
       .filter(Boolean),
+    paymentMethods: arr(obj(business.payments).methods)
+      .map(obj)
+      .map((m) => ({ id: str(m.id), label: (str(m.id) !== "other" && PAYMENTS[str(m.id)]) || str(m.label) || PAYMENTS[str(m.id)] || "", details: str(m.details) }))
+      .filter((m) => m.label),
+    socials: Object.entries(obj(obj(showcase.design).socials))
+      .map(([id, url]) => ({ id, label: SOCIAL_LABELS[id] ?? id, url: str(url) }))
+      .filter((s) => s.url),
+    exceptions: arr(obj(business.hours).exceptions)
+      .map(obj)
+      .map((e) => ({ date: str(e.date), closed: e.closed !== false, note: str(e.note) }))
+      .filter((e) => e.date && e.date >= new Date(Date.now() + 3600e3).toISOString().slice(0, 10))
+      .sort((a, b) => a.date.localeCompare(b.date))
+      .slice(0, 6),
     faq: arr(business.faq)
       .map(obj)
       .map((f) => ({ q: str(f.q), a: str(f.a) }))

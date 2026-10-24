@@ -64,6 +64,10 @@ export type Site = {
   hoursText: string;
   status: OpenStatus | null;
   payments: string[];
+  /** Payment methods with their number / details when the salon gave them. */
+  paymentMethods: { id: string; label: string; details: string }[];
+  socials: { id: string; label: string; url: string }[];
+  exceptions: { date: string; closed: boolean; note: string }[];
   faq: { q: string; a: string }[];
   assistant: AssistantInfo | null;
   /** false when SSS could not be reached and the built-in demo content is shown. */

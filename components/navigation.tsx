@@ -1,96 +1,76 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
 const navLinks = [
-  { href: "/", label: "Accueil" },
-  { href: "/services", label: "Services" },
+  { href: "/services", label: "Services & prix" },
   { href: "/equipe", label: "Équipe" },
   { href: "/galerie", label: "Galerie" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Infos & contact" },
 ];
 
-export function Navigation() {
-  const [isOpen, setIsOpen] = useState(false);
+export function Navigation({ name, logoUrl }: { name: string; logoUrl: string | null }) {
+  const [open, setOpen] = useState(false);
+  const path = usePathname();
+  useEffect(() => setOpen(false), [path]);
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-background/95 backdrop-blur-md shadow-lg`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <Image 
-              src="/logo.png"
-              alt="Bénédiction Barber Logo"
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full bg-white object-contain transition-transform group-hover:rotate-12"
-            />
-            <span className="font-bebas text-3xl tracking-wider text-foreground">
-              BÉNÉDICTION BARBER
-            </span>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
+      <div className="wrap flex h-16 items-center justify-between gap-4">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoUrl || "/logo.png"} alt="" width={36} height={36} className="h-9 w-9 shrink-0 rounded-full border border-border bg-white object-contain" />
+          <span className="truncate text-[15px] font-semibold">{name}</span>
+        </Link>
+
+        <nav className="hidden items-center gap-7 md:flex">
+          {navLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className={`text-sm transition-colors ${path.startsWith(l.href) ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Link href="/reservation" className="btn-dark h-10 px-4">
+            Réserver
           </Link>
+        </nav>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium uppercase tracking-wide text-foreground/80 hover:text-foreground transition-colors relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all group-hover:w-full" />
-              </Link>
-            ))}
-            <Button asChild size="lg" className="uppercase tracking-wide">
-              <Link href="/reservation">Réserver</Link>
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
+        <div className="flex items-center gap-2 md:hidden">
+          <Link href="/reservation" className="btn-dark h-9 px-4 text-[13px]">
+            Réserver
+          </Link>
           <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-foreground"
-            aria-label="Toggle menu"
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border"
+            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={open}
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden py-6 border-t border-border animate-fade-in-up">
-            <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-lg font-medium uppercase tracking-wide text-foreground/80 hover:text-foreground transition-colors py-2"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Button
-                asChild
-                size="lg"
-                className="uppercase tracking-wide mt-4"
-              >
-                <Link href="/reservation" onClick={() => setIsOpen(false)}>
-                  Réserver
-                </Link>
-              </Button>
-            </div>
-          </div>
-        )}
       </div>
-    </nav>
+
+      {open ? (
+        <div className="h-[calc(100dvh-4rem)] border-t border-border bg-background md:hidden">
+          <nav className="wrap flex flex-col py-4">
+            {[{ href: "/", label: "Accueil" }, ...navLinks, { href: "/reservation", label: "Réserver un rendez-vous" }].map((l) => (
+              <Link key={l.href} href={l.href} className="border-b border-border py-4 text-lg">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      ) : null}
+    </header>
   );
 }

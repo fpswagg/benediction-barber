@@ -1,87 +1,83 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { CalendarDays, MessageCircle, Phone } from "lucide-react";
 import type { Site } from "@/lib/site";
-import { telUrl, whatsappUrl } from "@/lib/config";
+import { telUrl } from "@/lib/config";
+import { Socials, mapsUrl, place, waLink } from "@/components/info";
 
 const links = [
-  { href: "/", label: "Accueil" },
-  { href: "/services", label: "Services" },
+  { href: "/services", label: "Services & prix" },
   { href: "/equipe", label: "Équipe" },
   { href: "/galerie", label: "Galerie" },
   { href: "/reservation", label: "Réservation" },
-  { href: "/contact", label: "Contact" },
+  { href: "/contact", label: "Infos & contact" },
 ];
 
 export function Footer({ site }: { site: Site }) {
-  const place = [site.address, `${site.city}, ${site.country}`].filter(Boolean).join(" — ");
-  const wa = whatsappUrl(site.whatsapp, "Bonjour Bénédiction Barber !");
+  const wa = waLink(site);
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
-            <h3 className="font-bebas text-2xl tracking-wider">{site.name.toUpperCase()}</h3>
-            <p className="text-sm text-primary-foreground/80 leading-relaxed">
-              Votre barbershop à {site.city}. Coupes, nattes, barbe et soins{site.extras.length ? `, avec ${site.extras.join(", ").toLowerCase()} sur place` : ""}.
+    <>
+      <footer className="border-t border-border pb-24 pt-12 md:pb-10">
+        <div className="wrap grid gap-8 text-sm sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="space-y-3">
+            <p className="text-base font-semibold">{site.name}</p>
+            <p className="max-w-xs leading-relaxed text-muted-foreground">
+              Barbershop à{" "}
+              <a href={mapsUrl(site)} target="_blank" rel="noopener noreferrer" className="link">
+                {place(site)}
+              </a>
+              . {site.hoursText}.
             </p>
+            <Socials site={site} />
           </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold uppercase tracking-wide text-sm">Navigation</h4>
-            <ul className="space-y-2">
-              {links.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold uppercase tracking-wide text-sm">Contact</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-primary-foreground/80">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>{place}</span>
-              </li>
-              {site.phone ? (
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Phone className="h-4 w-4 flex-shrink-0" />
-                  <a href={telUrl(site.phone) ?? undefined} className="hover:text-primary-foreground">{site.phone}</a>
-                </li>
-              ) : null}
-              {wa ? (
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <MessageCircle className="h-4 w-4 flex-shrink-0" />
-                  <a href={wa} target="_blank" rel="noopener noreferrer" className="hover:text-primary-foreground">WhatsApp</a>
-                </li>
-              ) : null}
-              {site.email ? (
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/80">
-                  <Mail className="h-4 w-4 flex-shrink-0" />
-                  <a href={`mailto:${site.email}`} className="hover:text-primary-foreground">{site.email}</a>
-                </li>
-              ) : null}
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h4 className="font-semibold uppercase tracking-wide text-sm">Horaires</h4>
-            <p className="text-sm text-primary-foreground/80 leading-relaxed">{site.hoursText}</p>
-            {site.payments.length ? (
-              <p className="text-xs text-primary-foreground/60 leading-relaxed">Paiement : {site.payments.join(", ")}</p>
+          <nav className="grid grid-cols-2 content-start gap-2 sm:grid-cols-1">
+            {links.map((l) => (
+              <Link key={l.href} href={l.href} className="text-muted-foreground hover:text-foreground">
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="space-y-2 text-muted-foreground">
+            {site.phone ? (
+              <a href={telUrl(site.phone) ?? undefined} className="block hover:text-foreground">
+                {site.phone}
+              </a>
             ) : null}
+            {site.email ? (
+              <a href={`mailto:${site.email}`} className="block break-all hover:text-foreground">
+                {site.email}
+              </a>
+            ) : null}
+            {site.payments.length ? <p>Paiement : {site.payments.join(", ")}</p> : null}
           </div>
         </div>
-
-        <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-          <p className="text-sm text-primary-foreground/60">
-            © {new Date().getFullYear()} {site.name}. Tous droits réservés. | {site.city}, {site.country}
+        <div className="wrap mt-10 flex flex-wrap justify-between gap-2 text-xs text-muted-foreground">
+          <p>
+            © {new Date().getFullYear()} {site.name} · {site.city}, {site.country}
           </p>
+          <Link href="/dashboard" className="hover:text-foreground">
+            Espace gérant
+          </Link>
+        </div>
+      </footer>
+
+      {/* Mobile: the three ways to book, always at hand */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden">
+        <div className="mx-auto flex max-w-md gap-2">
+          <Link href="/reservation" className="btn-dark h-11 flex-1">
+            <CalendarDays className="h-4 w-4" /> Réserver
+          </Link>
+          {wa ? (
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-wa h-11 flex-1">
+              <MessageCircle className="h-4 w-4" /> WhatsApp
+            </a>
+          ) : null}
+          {site.phone ? (
+            <a href={telUrl(site.phone) ?? undefined} className="btn-line h-11 w-11 shrink-0 px-0" aria-label="Appeler">
+              <Phone className="h-4 w-4" />
+            </a>
+          ) : null}
         </div>
       </div>
-    </footer>
+    </>
   );
 }

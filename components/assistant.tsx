@@ -233,10 +233,10 @@ export function Assistant({ apiUrl, assistant }: { apiUrl: string; assistant: As
           type="button"
           onClick={openPanel}
           aria-label={t.open}
-          className="fixed bottom-5 left-5 z-40 flex items-center justify-center gap-2 h-14 w-14 sm:w-auto sm:pl-4 sm:pr-5 rounded-full bg-[var(--foreground)] text-[var(--background)] shadow-xl ring-2 ring-[var(--gold)] hover:opacity-90 transition-opacity"
+          className="fixed bottom-[5.5rem] right-4 z-40 flex items-center justify-center gap-2 h-12 w-12 sm:h-14 sm:bottom-5 sm:right-5 sm:w-auto sm:pl-4 sm:pr-5 rounded-full bg-[var(--foreground)] text-[var(--background)] shadow-xl hover:opacity-90 transition-opacity"
         >
           <MessageCircle className="w-5 h-5" />
-          <span className="hidden sm:inline text-xs font-medium tracking-[0.15em] uppercase">{t.open}</span>
+          <span className="hidden sm:inline text-sm font-medium">{t.open}</span>
         </button>
       ) : null}
 
@@ -244,12 +244,12 @@ export function Assistant({ apiUrl, assistant }: { apiUrl: string; assistant: As
         <section
           role="dialog"
           aria-label={assistant.name}
-          className="fixed inset-x-0 bottom-0 z-[60] flex h-[85dvh] flex-col overflow-hidden border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] shadow-2xl sm:inset-x-auto sm:bottom-6 sm:left-6 sm:h-[min(620px,calc(100dvh-3rem))] sm:w-[400px] sm:rounded-lg"
+          className="fixed inset-x-0 bottom-0 z-[60] flex h-[85dvh] flex-col overflow-hidden border border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] shadow-2xl sm:inset-x-auto sm:bottom-6 sm:right-6 sm:h-[min(620px,calc(100dvh-3rem))] sm:w-[400px] rounded-t-2xl sm:rounded-2xl"
         >
           <header className="flex items-center gap-3 border-b border-[var(--border)] bg-[var(--muted)] px-4 py-3">
             <Avatar size={36} url={assistant.avatarUrl} />
             <div className="min-w-0 flex-1">
-              <p className="truncate font-bebas text-xl tracking-wider leading-tight">{assistant.name}</p>
+              <p className="truncate font-semibold leading-tight">{assistant.name}</p>
               <p className="truncate text-[11px] text-[var(--muted-foreground)]">{t.subtitle}</p>
             </div>
             {messages.length ? (
@@ -285,7 +285,7 @@ export function Assistant({ apiUrl, assistant }: { apiUrl: string; assistant: As
                     key={s}
                     type="button"
                     onClick={() => void send(s)}
-                    className="border border-[var(--border)] px-3 py-1.5 text-left text-xs hover:border-[var(--foreground)] transition-colors"
+                    className="rounded-full border border-[var(--border)] px-3 py-1.5 text-left text-xs hover:border-[var(--foreground)] transition-colors"
                   >
                     {s}
                   </button>
@@ -342,13 +342,13 @@ export function Assistant({ apiUrl, assistant }: { apiUrl: string; assistant: As
                   void send(draft);
                 }
               }}
-              className="max-h-32 min-h-[44px] flex-1 resize-none border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-base sm:text-sm placeholder:text-[var(--muted-foreground)] focus:border-[var(--foreground)] focus:outline-none"
+              className="max-h-32 min-h-[44px] flex-1 resize-none rounded-xl border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-base sm:text-sm placeholder:text-[var(--muted-foreground)] focus:border-[var(--foreground)] focus:outline-none"
             />
             <button
               type="submit"
               disabled={busy || !draft.trim()}
               aria-label={t.send}
-              className="flex h-[44px] w-[44px] shrink-0 items-center justify-center bg-[var(--foreground)] text-[var(--background)] disabled:opacity-30"
+              className="flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full bg-[var(--foreground)] text-[var(--background)] disabled:opacity-30"
             >
               <ArrowUp className="w-5 h-5" />
             </button>
@@ -377,7 +377,7 @@ function Bubble({ role, content, files, pending, typing }: Message & { typing?: 
   return (
     <div className={`flex ${mine ? "justify-end" : "justify-start"}`}>
       <div
-        className={`max-w-[85%] px-3.5 py-2.5 text-sm leading-relaxed ${
+        className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
           mine ? "bg-[var(--foreground)] text-[var(--background)]" : "bg-[var(--muted)] border border-[var(--border)]"
         }`}
       >

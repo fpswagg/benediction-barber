@@ -33,9 +33,9 @@ export function ContactForm() {
     return (
       <div className="py-10 text-center space-y-4">
         <CheckCircle2 className="h-12 w-12 text-green-600 mx-auto" />
-        <p className="font-bebas text-3xl tracking-wide">MESSAGE ENVOYÉ</p>
+        <p className="text-xl font-semibold">Message envoyé</p>
         <p className="text-sm text-muted-foreground">Merci ! L&apos;équipe vous répond au plus vite.</p>
-        <Button variant="outline" onClick={() => setState("idle")} className="uppercase tracking-wide">
+        <Button variant="outline" onClick={() => setState("idle")}>
           Nouveau message
         </Button>
       </div>
@@ -65,7 +65,7 @@ export function ContactForm() {
       </div>
       <input type="text" name="website" value={form.website} onChange={set("website")} tabIndex={-1} autoComplete="off" aria-hidden className="hidden" />
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      <Button type="submit" size="lg" disabled={state === "sending"} className="w-full uppercase tracking-wide group">
+      <Button type="submit" size="lg" disabled={state === "sending"} className="w-full group">
         <Send className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
         {state === "sending" ? "Envoi…" : "Envoyer le message"}
       </Button>

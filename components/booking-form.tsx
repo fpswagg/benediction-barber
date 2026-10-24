@@ -122,13 +122,13 @@ export function BookingForm({ categories, team, whatsapp }: { categories: Servic
     );
     return (
       <div ref={top} className="scroll-mt-24">
-      <Card className="shadow-2xl max-w-2xl mx-auto">
+      <Card className="max-w-2xl mx-auto rounded-2xl">
         <CardContent className="p-8 md:p-12 text-center space-y-6">
           <div className="h-20 w-20 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 className="h-12 w-12 text-green-600" />
           </div>
           <div className="space-y-2">
-            <h2 className="font-bebas text-4xl tracking-wide">DEMANDE ENVOYÉE !</h2>
+            <h2 className="text-2xl font-semibold">Demande envoyée</h2>
             <p className="text-muted-foreground">
               {frDay(booked.date)} à {booked.time}
               {booked.staff ? ` avec ${booked.staff}` : ""}
@@ -143,7 +143,7 @@ export function BookingForm({ categories, team, whatsapp }: { categories: Servic
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             {wa ? (
-              <Button asChild size="lg" className="uppercase tracking-wide bg-green-600 hover:bg-green-700 text-white">
+              <Button asChild size="lg" className="bg-green-600 hover:bg-green-700 text-white">
                 <a href={wa} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="mr-2 h-5 w-5" />
                   Confirmer sur WhatsApp
@@ -171,10 +171,10 @@ export function BookingForm({ categories, team, whatsapp }: { categories: Servic
   const free = slots?.slots.filter((s) => s.free) ?? [];
   return (
     <div ref={top} className="scroll-mt-24">
-    <Card className="shadow-xl">
+    <Card className="rounded-2xl">
       <CardHeader>
-        <CardTitle className="font-bebas text-3xl tracking-wide">INFORMATIONS DE RÉSERVATION</CardTitle>
-        <CardDescription>Choisissez votre prestation, votre barbier et un créneau libre</CardDescription>
+        <CardTitle className="text-xl font-semibold">Votre rendez-vous</CardTitle>
+        <CardDescription>Prestation, barbier, puis un créneau libre.</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={submit} className="space-y-8">
@@ -284,7 +284,7 @@ export function BookingForm({ categories, team, whatsapp }: { categories: Servic
           </div>
 
           {error ? <p className="text-sm text-red-600">{error}</p> : null}
-          <Button type="submit" size="lg" disabled={sending} className="w-full uppercase tracking-wide">
+          <Button type="submit" size="lg" disabled={sending} className="w-full">
             {sending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <Calendar className="mr-2 h-5 w-5" />}
             {sending ? "Envoi…" : form.time ? `Réserver ${frDay(form.date)} à ${form.time}` : "Réserver"}
           </Button>

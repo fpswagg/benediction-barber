@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import type { GalleryItem } from "@/lib/site"
 
-const LABELS: Record<string, string> = { coupes: "Coupes", tresses: "Tresses", barbe: "Barbe", soins: "Soins", salon: "Le salon" }
+const LABELS: Record<string, string> = { coupes: "Coupes", tresses: "Tresses", barbe: "Barbe", soins: "Soins", salon: "Le salon", femmes: "Coiffure femme" }
 
 export function GalleryGrid({ items }: { items: GalleryItem[] }) {
   const [filter, setFilter] = useState("all")
@@ -26,11 +26,11 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
 
   return (
     <>
-      <section className="py-6 bg-background border-b border-border sticky top-20 z-40 backdrop-blur-md bg-background/95">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-2 flex-wrap">
+      <section className="py-3 border-b border-border sticky top-16 z-30 backdrop-blur-md bg-background/95">
+        <div className="wrap">
+          <div className="flex items-center gap-2 overflow-x-auto">
             {[{ id: "all", label: "Tout" }, ...cats.map((c) => ({ id: c, label: LABELS[c] ?? c }))].map((c) => (
-              <Button key={c.id} size="sm" variant={filter === c.id ? "default" : "outline"} onClick={() => setFilter(c.id)} className="uppercase tracking-wide">
+              <Button key={c.id} size="sm" variant={filter === c.id ? "default" : "outline"} onClick={() => setFilter(c.id)} >
                 {c.label}
               </Button>
             ))}
@@ -38,21 +38,21 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
         </div>
       </section>
 
-      <section className="py-12 md:py-20 bg-background">
-        <div className="container mx-auto px-4">
+      <section className="pt-6">
+        <div className="wrap">
           {shown.length ? (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               {shown.map((item, index) => (
                 <button
                   key={item.url}
                   type="button"
                   onClick={() => setOpen(index)}
-                  className="group relative aspect-[4/5] overflow-hidden rounded-sm bg-muted text-left"
+                  className="group relative aspect-square overflow-hidden rounded-2xl bg-muted text-left"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={item.url} alt={item.caption} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3 md:p-5">
-                    <p className="font-bebas text-lg md:text-2xl tracking-wide text-white">{item.caption}</p>
+                  <img src={item.url} alt={item.caption} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                    <p className="text-sm text-white">{item.caption}</p>
                   </div>
                 </button>
               ))}
@@ -67,7 +67,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
         <div role="dialog" aria-label={shown[open].caption} className="fixed inset-0 z-[70] flex items-center justify-center bg-black/95 p-4" onClick={() => setOpen(null)}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={shown[open].url} alt={shown[open].caption} className="max-h-[85dvh] max-w-full object-contain" onClick={(e) => e.stopPropagation()} />
-          <p className="absolute bottom-6 inset-x-0 text-center font-bebas text-2xl tracking-wide text-white">{shown[open].caption}</p>
+          <p className="absolute bottom-6 inset-x-0 text-center text-sm text-white">{shown[open].caption}</p>
           <button type="button" aria-label="Fermer" className="absolute top-4 right-4 p-2 text-white" onClick={() => setOpen(null)}>
             <X className="h-7 w-7" />
           </button>
