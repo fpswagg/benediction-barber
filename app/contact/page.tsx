@@ -12,7 +12,7 @@ export const revalidate = 60;
 
 export const metadata = {
   title: "Contact | Bénédiction Barber Yaoundé",
-  description: "Appelez, écrivez sur WhatsApp ou envoyez un message à Bénédiction Barber. Ouvert tous les jours de 8h à 22h.",
+  description: "Appelez, écrivez sur WhatsApp ou envoyez un message à Bénédiction Barber. Ouvert tous les jours de 9h à 18h.",
 };
 
 function Info({ icon: Icon, title, children }: { icon: typeof MapPin; title: string; children: React.ReactNode }) {

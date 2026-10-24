@@ -35,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const baseMetadata: Metadata = {
   title: "Bénédiction Barber | Salon de Coiffure Urbain à Yaoundé",
   description:
-    "Salon de coiffure professionnel à Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours de 8h à 22h. Réservez votre rendez-vous en ligne.",
+    "Salon de coiffure professionnel à Biyem-Assi, Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours de 9h à 18h. Réservez votre rendez-vous en ligne.",
   keywords:
     "barbier Yaoundé, coiffure homme Yaoundé, barber shop Yaoundé, tresses Yaoundé, coupe moderne Cameroun",
   icons: {

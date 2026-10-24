@@ -140,7 +140,7 @@ export default async function HomePage() {
                 icon: Clock,
                 title: "Flexibilité",
                 description:
-                  "Ouvert tous les jours de 8h à 22h, réservation en ligne ou avec notre assistant",
+                  "Ouvert tous les jours de 9h à 18h, réservation en ligne ou avec notre assistant",
               },
               {
                 icon: MapPin,

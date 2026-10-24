@@ -26,11 +26,11 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <Image 
-              src="/logo.svg" 
-              alt="Bénédiction Barber Logo" 
-              width={32} 
-              height={32}
-              className="h-8 w-8 text-foreground transition-transform group-hover:rotate-12"
+              src="/logo.png"
+              alt="Bénédiction Barber Logo"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full bg-white object-contain transition-transform group-hover:rotate-12"
             />
             <span className="font-bebas text-3xl tracking-wider text-foreground">
               BÉNÉDICTION BARBER

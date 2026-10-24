@@ -100,18 +100,18 @@ function categoriesFrom(services: Raw[]): ServiceCategory[] {
 
 /** Built-in demo content, shown only when SSS cannot be reached. */
 function fallback(): Site {
-  const days: DayHours[] = DAYS.map(([key, label]) => ({ key, label, slots: [{ from: "08:00", to: "22:00" }] }));
+  const days: DayHours[] = DAYS.map(([key, label]) => ({ key, label, slots: [{ from: "09:00", to: "18:00" }] }));
   return {
     name: BUSINESS_NAME,
     description: "Barbershop à Yaoundé : coupes, dégradés, nattes, barbe et soins.",
     about: "",
-    heroSubtitle: "Coupes, dégradés, nattes et barbe à Yaoundé. Ouvert tous les jours, 8h–22h.",
-    logoUrl: null,
+    heroSubtitle: "Coupes, dégradés, nattes et barbe à Biyem-Assi, Yaoundé. Ouvert tous les jours, 9h–18h.",
+    logoUrl: "/logo.png",
     bannerUrl: null,
-    phone: null,
-    whatsapp: null,
-    email: null,
-    address: null,
+    phone: "+237 691 89 32 41",
+    whatsapp: "+237 691 89 32 41",
+    email: "franckemile98@gmail.com",
+    address: "Biyem-Assi, face au collège Fleming",
     city: "Yaoundé",
     country: "Cameroun",
     extras: [],
