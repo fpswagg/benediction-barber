@@ -2,11 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, Images, Inbox, LayoutDashboard, Scissors, Store, Users } from "lucide-react";
+import { Images, Inbox, LayoutDashboard, Scissors, Store, Users } from "lucide-react";
 
 const LINKS = [
   { href: "/dashboard", label: "Aujourd'hui", icon: LayoutDashboard },
-  { href: "/dashboard/rendez-vous", label: "Rendez-vous", icon: CalendarDays },
   { href: "/dashboard/services", label: "Services & prix", icon: Scissors },
   { href: "/dashboard/equipe", label: "Équipe", icon: Users },
   { href: "/dashboard/photos", label: "Photos", icon: Images },

@@ -1,20 +1,16 @@
 import Link from "next/link";
-import { ArrowRight, Plus, Zap, ZapOff } from "lucide-react";
-import { appointments, getProfile, obj, arr, str, requireDash, services as getServices, team as getTeam, presentToday } from "@/lib/dash";
+import { Zap, ZapOff } from "lucide-react";
+import { getProfile, obj, arr, str, requireDash, services as getServices, team as getTeam, presentToday } from "@/lib/dash";
 import { doualaToday, frDate, hh } from "@/lib/format";
 import { setDependency, setPause } from "./actions";
 import { ActionForm, Submit } from "./_ui/forms";
 import { Card, Empty, Input, PageTitle, Select } from "./_ui/fields";
-import { AppointmentForm, AppointmentRow } from "./_ui/appointment";
 import { PresenceRow } from "./_ui/presence";
 
 export default async function Today() {
   const ctx = await requireDash();
   const today = doualaToday().iso;
-  const [appts, { profile, now }, team, services] = await Promise.all([appointments(ctx), getProfile(ctx), getTeam(ctx), getServices(ctx)]);
-  const todays = appts.filter((a) => a.date === today);
-  const live = todays.filter((a) => a.status === "requested" || a.status === "confirmed");
-  const pending = appts.filter((a) => a.status === "requested" && a.date > today);
+  const [{ profile, now }, team, services] = await Promise.all([getProfile(ctx), getTeam(ctx), getServices(ctx)]);
   const staff = team.filter((m) => m.active);
   const present = staff.filter((m) => presentToday(m, today));
 
@@ -86,11 +82,10 @@ export default async function Today() {
         </div>
       </Card>
 
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3">
         {[
-          [String(live.length), "RDV aujourd'hui"],
-          [String(appts.filter((a) => a.status === "requested" && a.date >= today).length), "À confirmer"],
           [`${present.length}/${staff.length}`, "Coiffeurs présents"],
+          [String(services.filter((x) => x.active !== false).length), "Services en ligne"],
         ].map(([n, l]) => (
           <div key={l} className="rounded-2xl border border-border bg-card p-3 sm:p-4">
             <p className="text-2xl font-semibold tabular-nums">{n}</p>
@@ -98,46 +93,6 @@ export default async function Today() {
           </div>
         ))}
       </div>
-
-      <section className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="font-semibold">Rendez-vous du jour</h2>
-          <Link href="/dashboard/rendez-vous" className="link text-sm">
-            Tout voir
-          </Link>
-        </div>
-        {todays.length ? (
-          <ul className="space-y-3">
-            {todays.map((a) => (
-              <AppointmentRow key={a.id} a={a} services={services} team={team} />
-            ))}
-          </ul>
-        ) : (
-          <Empty>Aucun rendez-vous aujourd&apos;hui.</Empty>
-        )}
-        <details className="rounded-2xl border border-border bg-card p-4">
-          <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium">
-            <Plus className="size-4" /> Ajouter un rendez-vous (client au salon ou au téléphone)
-          </summary>
-          <AppointmentForm services={services} team={team} date={today} />
-        </details>
-      </section>
-
-      {pending.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="font-semibold">Demandes à confirmer (prochains jours)</h2>
-          <ul className="space-y-3">
-            {pending.slice(0, 6).map((a) => (
-              <AppointmentRow key={a.id} a={a} showDate services={services} team={team} />
-            ))}
-          </ul>
-          {pending.length > 6 && (
-            <Link href="/dashboard/rendez-vous" className="link inline-flex items-center gap-1 text-sm">
-              {pending.length - 6} autres <ArrowRight className="size-4" />
-            </Link>
-          )}
-        </section>
-      )}
 
       <Card title="Qui est là aujourd'hui ?" action={<Link href="/dashboard/equipe" className="link text-sm">Équipe</Link>}>
         {staff.length ? (
@@ -149,7 +104,7 @@ export default async function Today() {
         ) : (
           <Empty>Ajoutez votre équipe dans l&apos;onglet Équipe.</Empty>
         )}
-        <p className="mt-3 text-xs text-muted-foreground">Un coiffeur absent n&apos;est plus proposé à la réservation en ligne.</p>
+        <p className="mt-3 text-xs text-muted-foreground">L&apos;assistant du site dit aux clients qui est là aujourd&apos;hui.</p>
       </Card>
     </div>
   );

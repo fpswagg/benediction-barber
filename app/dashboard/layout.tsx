@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ExternalLink, LogOut } from "lucide-react";
-import { appointments, dashState, messages } from "@/lib/dash";
+import { dashState, messages } from "@/lib/dash";
 import { authProblem } from "@/lib/sss-auth";
 import { authConfig } from "@/lib/auth-config";
-import { doualaToday } from "@/lib/format";
 import { DashNav } from "./_ui/nav";
 
 export const dynamic = "force-dynamic";
@@ -29,7 +28,7 @@ function SignIn() {
       <p className="eyebrow">Espace gérant</p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">Bénédiction Barber</h1>
       <p className="mt-3 text-sm text-muted-foreground">
-        Gérez les rendez-vous, les prix, l&apos;équipe, les photos et les infos du salon. Connectez-vous avec votre compte SSS.
+        Gérez les prix, l&apos;équipe, les photos et les infos du salon. Connectez-vous avec votre compte SSS.
       </p>
       {problem ? (
         <p className="mt-6 rounded-xl bg-muted p-3 text-sm text-muted-foreground">La connexion n&apos;est pas encore activée sur ce site.</p>
@@ -67,10 +66,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (state.kind === "wrong_business") return <WrongBusiness name={state.session.user.business?.name ?? ""} />;
 
   const { ctx } = state;
-  const today = doualaToday().iso;
-  const [appts, msgs] = await Promise.all([appointments(ctx), messages(ctx)]);
+  const msgs = await messages(ctx);
   const counts = {
-    "/dashboard/rendez-vous": appts.filter((a) => a.status === "requested" && a.date >= today).length,
     "/dashboard/messages": msgs.filter((m) => !m.done && m.type !== "booking").length,
   };
   const who = ctx.session.user.name ?? ctx.session.user.email ?? "";

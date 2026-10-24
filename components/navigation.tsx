@@ -39,14 +39,14 @@ export function Navigation({ name, logoUrl }: { name: string; logoUrl: string | 
               {l.label}
             </Link>
           ))}
-          <Link href="/reservation" className="btn-dark h-10 px-4">
-            Réserver
+          <Link href="/contact" className="btn-dark h-10 px-4">
+            Venir au salon
           </Link>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
-          <Link href="/reservation" className="btn-dark h-9 px-4 text-[13px]">
-            Réserver
+          <Link href="/contact" className="btn-dark h-9 px-4 text-[13px]">
+            Nous trouver
           </Link>
           <button
             type="button"
@@ -63,7 +63,7 @@ export function Navigation({ name, logoUrl }: { name: string; logoUrl: string | 
       {open ? (
         <div className="h-[calc(100dvh-4rem)] border-t border-border bg-background md:hidden">
           <nav className="wrap flex flex-col py-4">
-            {[{ href: "/", label: "Accueil" }, ...navLinks, { href: "/reservation", label: "Réserver un rendez-vous" }].map((l) => (
+            {[{ href: "/", label: "Accueil" }, ...navLinks].map((l) => (
               <Link key={l.href} href={l.href} className="border-b border-border py-4 text-lg">
                 {l.label}
               </Link>

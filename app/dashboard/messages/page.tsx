@@ -64,7 +64,7 @@ export default async function Messages() {
 
   return (
     <div className="space-y-5">
-      <PageTitle title="Messages" sub="Formulaire de contact, demandes de rappel et réservations reçues par le site ou l'assistant." />
+      <PageTitle title="Messages" sub="Formulaire de contact, et demandes de rappel reçues par le site ou l'assistant." />
       {open.length ? (
         <ul className="space-y-3">
           {open.map((m) => (

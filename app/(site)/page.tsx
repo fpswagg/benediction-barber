@@ -8,14 +8,14 @@ import { AskButton } from "@/components/ask-button";
 
 export default async function HomePage() {
   const site = await getSite();
-  const wa = waLink(site, `Bonjour ${site.name}, je voudrais prendre rendez-vous.`);
+  const wa = waLink(site, `Bonjour ${site.name}, je voudrais un renseignement.`);
   const hero = site.bannerUrl ?? site.gallery[0]?.url ?? "/men-haircut.jpg";
   const photos = site.gallery.slice(0, 6);
   const shortHours = site.hoursText.replace("Tous les jours : ", "Tous les jours, ");
 
   return (
     <>
-      {/* Hero: who, where, open or not, how to book */}
+      {/* Hero: who, where, open or not, how to come */}
       <section className="wrap grid items-center gap-8 pb-12 pt-8 sm:pt-14 md:grid-cols-[1.05fr_1fr] md:gap-12 md:pb-20">
         <div className="space-y-6">
           <StatusPill status={site.status} />
@@ -24,9 +24,9 @@ export default async function HomePage() {
             <p className="max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg">{site.heroSubtitle}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href="/reservation" className="btn-dark">
-              Réserver un créneau <ArrowRight className="h-4 w-4" />
-            </Link>
+            <a href={mapsUrl(site)} target="_blank" rel="noopener noreferrer" className="btn-dark">
+              Itinéraire <ArrowRight className="h-4 w-4" />
+            </a>
             {wa ? (
               <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-wa">
                 <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -64,8 +64,8 @@ export default async function HomePage() {
           <ServiceMenu categories={site.categories} />
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
             <Extras site={site} />
-            <Link href="/reservation" className="btn-dark">
-              Réserver
+            <Link href="/#infos" className="btn-dark">
+              Venir au salon
             </Link>
           </div>
         </div>

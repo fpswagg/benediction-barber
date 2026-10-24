@@ -38,7 +38,7 @@ export default async function Team() {
 
   return (
     <div className="space-y-5">
-      <PageTitle title="Équipe" sub="Noms, photos et présence. Les absents ne sont plus proposés à la réservation." />
+      <PageTitle title="Équipe" sub="Noms, photos et présence. L’assistant du site dit aux clients qui est là." />
 
       <Card title="Présence aujourd'hui">
         {active.length ? (

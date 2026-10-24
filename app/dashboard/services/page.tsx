@@ -6,7 +6,7 @@ import { ActionForm, Submit } from "../_ui/forms";
 import { Badge, Card, Empty, PageTitle } from "../_ui/fields";
 import { ServiceForm } from "../_ui/service-form";
 
-const SUGGESTED = ["Coupes & Coiffures", "Barbe & Rasage", "Soins", "Coiffure femme", "Forfaits"];
+const SUGGESTED = ["Coupes & Coiffures", "Barbe & Rasage", "Soins", "Coiffure femme"];
 
 export default async function Services() {
   const ctx = await requireDash();

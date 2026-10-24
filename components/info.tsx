@@ -177,11 +177,6 @@ export function ServiceMenu({ categories, details = false }: { categories: Servi
                 </div>
                 <div className="flex shrink-0 flex-col items-end gap-1">
                   <span className="text-[15px] font-semibold tabular-nums">{price(s.price, s.currency)}</span>
-                  {details ? (
-                    <Link href={`/reservation?service=${encodeURIComponent(s.id)}`} className="text-xs link">
-                      Réserver
-                    </Link>
-                  ) : null}
                 </div>
               </li>
             ))}
@@ -226,11 +221,6 @@ export function TeamGrid({ team, details = false }: { team: TeamMember[]; detail
             {details && m.bio ? <p className="pt-1 text-sm leading-relaxed">{m.bio}</p> : null}
             {m.specialties.length ? (
               <p className="pt-1 text-xs text-muted-foreground">{m.specialties.join(" · ")}</p>
-            ) : null}
-            {details ? (
-              <Link href={`/reservation?barber=${encodeURIComponent(m.id)}`} className="inline-block pt-2 text-sm link">
-                Réserver avec {m.name.split(" ")[0]}
-              </Link>
             ) : null}
           </div>
         </article>

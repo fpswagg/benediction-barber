@@ -50,7 +50,7 @@ export default async function ContactPage() {
             <div className="space-y-3 rounded-2xl bg-muted p-5 sm:p-6">
               <h2 className="text-lg font-semibold">Réponse immédiate</h2>
               <p className="text-sm text-muted-foreground">
-                Notre assistant connaît les prix, les horaires et les créneaux libres. Il peut aussi réserver pour vous.
+                Notre assistant connaît les prix, les horaires et qui est au salon aujourd’hui.
               </p>
               <AskButton className="btn-dark">Poser une question</AskButton>
             </div>

@@ -143,38 +143,6 @@
           "popular": false
         }
       ]
-    },
-    {
-      "id": "forfaits",
-      "name": "Forfaits Premium",
-      "description": "Combinaisons de services à prix avantageux",
-      "icon": "crown",
-      "services": [
-        {
-          "id": "forfait-complet",
-          "name": "Forfait Complet",
-          "description": "Coupe + Bain de visage + Soin barbe",
-          "price": 7000,
-          "duration": 90,
-          "popular": true
-        },
-        {
-          "id": "forfait-premium",
-          "name": "Forfait Premium",
-          "description": "Coupe moderne + Bain + Barbe + Massage",
-          "price": 9000,
-          "duration": 120,
-          "popular": true
-        },
-        {
-          "id": "forfait-express",
-          "name": "Forfait Express",
-          "description": "Coupe + Lavage rapide",
-          "price": 4000,
-          "duration": 45,
-          "popular": false
-        }
-      ]
     }
   ]
 }

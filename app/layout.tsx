@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const baseMetadata: Metadata = {
   title: "Bénédiction Barber | Barbershop à Biyem-Assi, Yaoundé",
   description:
-    "Barbershop à Biyem-Assi, face au collège Fleming, Yaoundé. Coupes, dégradés, nattes, barbe et soins. Ouvert tous les jours. Réservez en ligne ou sur WhatsApp.",
+    "Barbershop à Biyem-Assi, face au collège Fleming, Yaoundé. Coupes, dégradés, nattes, barbe et soins. Sans rendez-vous, ouvert tous les jours.",
   keywords: "barbier Yaoundé, coiffure homme Yaoundé, barber shop Biyem-Assi, tresses Yaoundé, dégradé Cameroun",
   icons: { icon: "/logo.png", shortcut: "/logo.png", apple: "/logo.png" },
   openGraph: {

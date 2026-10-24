@@ -82,46 +82,6 @@ export async function setAppointmentStatus(_: Result, fd: FormData) {
   });
 }
 
-export async function saveAppointment(_: Result, fd: FormData) {
-  return run(async (ctx) => {
-    const id = f(fd, "id");
-    const clientName = f(fd, "clientName");
-    const date = f(fd, "date");
-    const time = f(fd, "time");
-    if (!clientName) throw new Error("Nom du client manquant.");
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{2}:\d{2}$/.test(time)) throw new Error("Date ou heure invalide.");
-    const service = f(fd, "service");
-    const staff = f(fd, "staff");
-    const fields: Raw = {
-      clientName,
-      phone: f(fd, "phone"),
-      service,
-      staff,
-      date,
-      time,
-      durationMin: intOr(f(fd, "durationMin"), 30) ?? 30,
-      notes: f(fd, "notes"),
-    };
-    const name = [clientName, service, staff].filter(Boolean).join(" — ").slice(0, 120);
-    if (id) {
-      await patchRecord(ctx, "appointment", id, (d) => ({ ...d, ...fields }), { name });
-      return "Rendez-vous modifié";
-    }
-    await api(ctx, "/sasto/appointment", {
-      method: "POST",
-      body: json({ name, data: { ...fields, status: f(fd, "status") || "confirmed", channel: f(fd, "channel") || "shop" } }),
-    });
-    return "Rendez-vous ajouté";
-  });
-}
-
-export async function deleteAppointment(_: Result, fd: FormData) {
-  return run(async (ctx) => {
-    await api(ctx, `/sasto/appointment/${encodeURIComponent(f(fd, "id"))}`, { method: "DELETE" });
-    return "Rendez-vous supprimé";
-  });
-}
-
 // ── Services & prices ───────────────────────────────────────────────────
 
 export async function saveService(_: Result, fd: FormData) {

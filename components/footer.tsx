@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, MessageCircle, Phone } from "lucide-react";
+import { MapPin, MessageCircle, Phone } from "lucide-react";
 import type { Site } from "@/lib/site";
 import { telUrl } from "@/lib/config";
 import { Socials, mapsUrl, place, waLink } from "@/components/info";
@@ -8,7 +8,6 @@ const links = [
   { href: "/services", label: "Services & prix" },
   { href: "/equipe", label: "Équipe" },
   { href: "/galerie", label: "Galerie" },
-  { href: "/reservation", label: "Réservation" },
   { href: "/contact", label: "Infos & contact" },
 ];
 
@@ -60,12 +59,12 @@ export function Footer({ site }: { site: Site }) {
         </div>
       </footer>
 
-      {/* Mobile: the three ways to book, always at hand */}
+      {/* Mobile: find us, write, call — always at hand */}
       <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-md gap-2">
-          <Link href="/reservation" className="btn-dark h-11 flex-1">
-            <CalendarDays className="h-4 w-4" /> Réserver
-          </Link>
+          <a href={mapsUrl(site)} target="_blank" rel="noopener noreferrer" className="btn-dark h-11 flex-1">
+            <MapPin className="h-4 w-4" /> Itinéraire
+          </a>
           {wa ? (
             <a href={wa} target="_blank" rel="noopener noreferrer" className="btn-wa h-11 flex-1">
               <MessageCircle className="h-4 w-4" /> WhatsApp

@@ -19,8 +19,8 @@ export default async function GalleryPage() {
       </PageHead>
       <GalleryGrid items={site.gallery} />
       <div className="wrap py-12">
-        <Link href="/reservation" className="btn-dark">
-          Envie du même style ? Réserver
+        <Link href="/contact" className="btn-dark">
+          Envie du même style ? Passez au salon
         </Link>
       </div>
     </>

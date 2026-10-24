@@ -32,8 +32,8 @@ export default async function ServicesPage() {
           <Extras site={site} />
           {site.payments.length ? <p className="text-sm text-muted-foreground">Paiement : {site.payments.join(", ")}.</p> : null}
           <div className="flex flex-wrap gap-3">
-            <Link href="/reservation" className="btn-dark">
-              Réserver
+            <Link href="/contact" className="btn-dark">
+              Venir au salon
             </Link>
             {site.assistant ? (
               <AskButton prefill="Quel service me conseillez-vous ?" className="btn-line">

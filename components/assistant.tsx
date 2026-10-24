@@ -23,15 +23,15 @@ const VISITOR_KEY = "bb_visitor_id";
 const t = {
   open: "Assistant",
   close: "Fermer",
-  subtitle: "Prix, disponibilités, rendez-vous",
+  subtitle: "Prix, horaires, disponibilités",
   new_chat: "Nouvelle conversation",
   placeholder: "Votre message…",
   send: "Envoyer",
   typing: "En train d'écrire",
   error: "Le message n'est pas parti. Réessayez.",
   rate: "Trop de messages d'un coup. Patientez un instant.",
-  greeting: "Bonjour 👋 Je peux vous donner nos prix, nos disponibilités et prendre votre rendez-vous.",
-  suggestions: ["Je veux prendre rendez-vous", "Quels sont vos prix ?", "Êtes-vous ouverts ?"],
+  greeting: "Bonjour 👋 Je peux vous donner nos prix, nos horaires et vous dire qui est au salon aujourd’hui.",
+  suggestions: ["Quels sont vos prix ?", "Êtes-vous ouverts ?", "Où êtes-vous ?"],
 };
 
 function visitorId(): string {
